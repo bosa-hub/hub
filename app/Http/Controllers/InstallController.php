@@ -30,7 +30,7 @@ class InstallController extends Controller
     public function step1(): View
     {
         $permission['curl_enabled'] = function_exists('curl_version');
-        $permission['db_file_write_perm'] = true;
+        $permission['db_file_write_perm'] = (str_contains(base_path('.env'), '.env')) ? true : is_writable(base_path('.env'));
         $permission['routes_file_write_perm'] = is_writable(app_path('Providers/RouteServiceProvider.php'));
         return view('installation.step1', compact('permission'));
     }
